@@ -1,4 +1,5 @@
 import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
+import {container} from '../services/ioc/ContainerContext';
 
 export const store = configureStore({
   reducer: {},
@@ -11,3 +12,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+export const StoreType = Symbol.for('Store');
+
+container.bind(StoreType).toConstantValue(store);
