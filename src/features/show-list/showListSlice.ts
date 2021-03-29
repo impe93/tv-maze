@@ -14,13 +14,18 @@ const initialState: ShowListState = {
 
 const SHOW_LIST_SLICE_NAME: string = 'showListSlice';
 
+const setShowListHandler = (
+  state: ShowListState,
+  action: PayloadAction<Show[]>,
+) => {
+  state.showList = action.payload;
+};
+
 export const showListSlice = createSlice({
   name: SHOW_LIST_SLICE_NAME,
   initialState,
   reducers: {
-    setShowList: (state: ShowListState, action: PayloadAction<Show[]>) => {
-      state.showList = action.payload;
-    },
+    setShowList: setShowListHandler,
   },
 });
 
