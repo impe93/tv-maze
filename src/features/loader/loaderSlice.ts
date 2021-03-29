@@ -10,16 +10,20 @@ const initialState: LoaderState = {
 
 const LOADER_SLICE_NAME: string = 'loaderSlice';
 
+export const showLoaderHandler = state => {
+  state.loader = true;
+};
+
+export const hideLoaderHandler = state => {
+  state.loader = false;
+};
+
 export const loaderSlice = createSlice({
   name: LOADER_SLICE_NAME,
   initialState,
   reducers: {
-    showLoader: state => {
-      state.loader = true;
-    },
-    hideLoader: state => {
-      state.loader = false;
-    },
+    showLoader: showLoaderHandler,
+    hideLoader: hideLoaderHandler,
   },
 });
 
