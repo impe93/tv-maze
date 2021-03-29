@@ -43,11 +43,11 @@ function withTestContext<P, R>({
 export class TestHookBuilder<P, R> {
   config: TestContextConfig<P, R>;
 
-  static fromHook<P1, R1>(callback: TestContextConfig<P1, R1>['callback']) {
+  static fromHook<P1, R1>(callback?: TestContextConfig<P1, R1>['callback']) {
     return new TestHookBuilder(callback);
   }
 
-  constructor(callback: TestContextConfig<P, R>['callback']) {
+  constructor(callback?: TestContextConfig<P, R>['callback']) {
     this.config = {callback};
   }
 
