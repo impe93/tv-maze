@@ -15,11 +15,13 @@ export interface IHttpClient {
 export class HttpClient implements IHttpClient {
   private axiosInstance: AxiosInstance;
 
-  constructor() {
-    this.axiosInstance = axios.create({
-      baseURL: 'http://api.tvmaze.com',
-      timeout: 10000,
-    });
+  constructor(axiosInstance?: AxiosInstance) {
+    this.axiosInstance =
+      axiosInstance ??
+      axios.create({
+        baseURL: 'http://api.tvmaze.com',
+        timeout: 10000,
+      });
   }
 
   public get = async <T>(url: string, config?: RequestConfig) => {
