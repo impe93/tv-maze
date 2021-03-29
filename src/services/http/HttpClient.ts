@@ -1,10 +1,15 @@
-import axios, {AxiosInstance, AxiosRequestConfig} from 'axios';
+import axios, {AxiosInstance} from 'axios';
 import {container} from '../ioc/ContainerContext';
 
 export const IHttpClientType = Symbol.for('IHttpClientType');
 
+export type RequestConfig = {
+  headers?: Record<string, any>;
+  params?: Record<string, any>;
+};
+
 export interface IHttpClient {
-  get: <T>(url: string) => Promise<T>;
+  get: <T>(url: string, config?: RequestConfig) => Promise<T>;
 }
 
 export class HttpClient implements IHttpClient {
@@ -17,8 +22,8 @@ export class HttpClient implements IHttpClient {
     });
   }
 
-  public get = async <T>(url: string, config?: AxiosRequestConfig) => {
-    const res = await axios.get<T>(url, config);
+  public get = async <T>(url: string, config?: RequestConfig) => {
+    const res = await this.axiosInstance.get<T>(url, config);
     return res.data;
   };
 }
