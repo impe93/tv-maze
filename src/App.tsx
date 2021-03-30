@@ -4,11 +4,11 @@ import React from 'react';
 import {container, ContainerContext} from './services/ioc/ContainerContext';
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, ScrollView} from 'react-native';
 import {H1, H2, Paragraph, Subtitle} from './components/Typography';
 import {Arrow} from './components/Arrow';
 import {Poster} from './components/Poster';
-import {ScrollView} from 'react-native-gesture-handler';
+import {BackButton} from './components/BackButton';
 
 const App = () => {
   return (
@@ -21,6 +21,7 @@ const App = () => {
             <Subtitle>TV Shows</Subtitle>
             <Paragraph>TV Shows</Paragraph>
             <Arrow direction="right" />
+            <BackButton onPress={() => console.log('work')} />
             <Poster uri="https://static.tvmaze.com/uploads/images/original_untouched/0/73.jpg" />
           </ScrollView>
         </SafeAreaView>
