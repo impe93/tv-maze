@@ -9,6 +9,7 @@ import {H1, H2, Paragraph, Subtitle} from './components/Typography';
 import {Arrow} from './components/Arrow';
 import {Poster} from './components/Poster';
 import {BackButton} from './components/BackButton';
+import {Input} from './components/Input';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Paragraph>TV Shows</Paragraph>
             <Arrow direction="right" />
             <BackButton onPress={() => console.log('work')} />
+            <Input />
             <Poster uri="https://static.tvmaze.com/uploads/images/original_untouched/0/73.jpg" />
           </ScrollView>
         </SafeAreaView>
