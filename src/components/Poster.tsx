@@ -7,7 +7,7 @@ type Props = {
 };
 
 const smallPosterWidth =
-  (Dimensions.get('window').width - viewportPadding * 2) / 2;
+  (Dimensions.get('window').width - viewportPadding * 2) / 2.5;
 const smallPosterHeight = smallPosterWidth * 1.4;
 
 const posterWidth = Dimensions.get('window').width - viewportPadding * 2;

@@ -35,7 +35,7 @@ const style = StyleSheet.create({
   },
   subtitle: {
     fontFamily: 'Nunito-SemiBold',
-    fontSize: 24,
+    fontSize: 18,
     color: subtitleColor,
   },
   paragraph: {
