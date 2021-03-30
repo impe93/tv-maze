@@ -6,16 +6,23 @@ import {store} from './redux/store';
 import {Provider} from 'react-redux';
 import {SafeAreaView} from 'react-native';
 import {H1, H2, Paragraph, Subtitle} from './components/Typography';
+import {Arrow} from './components/Arrow';
+import {Poster} from './components/Poster';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const App = () => {
   return (
     <ContainerContext.Provider value={container}>
       <Provider store={store}>
         <SafeAreaView>
-          <H1>TV Shows</H1>
-          <H2>TV Shows</H2>
-          <Subtitle>TV Shows</Subtitle>
-          <Paragraph>TV Shows</Paragraph>
+          <ScrollView>
+            <H1>TV Shows</H1>
+            <H2>TV Shows</H2>
+            <Subtitle>TV Shows</Subtitle>
+            <Paragraph>TV Shows</Paragraph>
+            <Arrow direction="right" />
+            <Poster uri="https://static.tvmaze.com/uploads/images/original_untouched/0/73.jpg" />
+          </ScrollView>
         </SafeAreaView>
       </Provider>
     </ContainerContext.Provider>
