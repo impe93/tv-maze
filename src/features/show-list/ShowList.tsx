@@ -73,6 +73,7 @@ export const ShowList = memo(
         />
         <View style={style.hr} />
         <FlatList
+          showsVerticalScrollIndicator={false}
           keyExtractor={item => `${item.id}`}
           data={showList}
           renderItem={renderItem}
