@@ -3,6 +3,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Arrow} from '../../components/Arrow';
 import {SmallPoster} from '../../components/Poster';
 import {H2, Subtitle} from '../../components/Typography';
+import {viewportPadding} from '../../utils/const';
 import {Show} from './show.models';
 
 type Props = {
@@ -15,7 +16,7 @@ export const ShowListElement = ({show, onPress}: Props) => {
     <View style={style.card}>
       <TouchableOpacity onPress={onPress}>
         <View style={style.container}>
-          <SmallPoster uri={show.image.original} />
+          <SmallPoster uri={show.image.medium} />
           <View style={style.infoContainer}>
             <H2>{show.name}</H2>
             <Subtitle>{show.genres[0]}</Subtitle>
@@ -30,7 +31,7 @@ export const ShowListElement = ({show, onPress}: Props) => {
 const style = StyleSheet.create({
   card: {
     width: '100%',
-    paddingVertical: 12,
+    paddingVertical: viewportPadding / 2,
   },
   container: {
     flexDirection: 'row',
