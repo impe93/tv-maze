@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Arrow} from './Arrow';
 
 type Props = {
@@ -7,7 +7,15 @@ type Props = {
 };
 
 export const BackButton = ({onPress}: Props) => (
-  <TouchableOpacity onPress={onPress}>
-    <Arrow direction="left" />
-  </TouchableOpacity>
+  <View style={styleSheet.container} >
+    <TouchableOpacity onPress={onPress}>
+      <Arrow direction="left" />
+    </TouchableOpacity>
+  </View>
 );
+
+const styleSheet = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+  },
+});
