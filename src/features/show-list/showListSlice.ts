@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk, RootState} from '../../redux/store';
 import {IHttpClient} from '../../services/http/HttpClient';
-import {Show} from './show.models';
+import {Show, ShowWithScore} from './show.models';
 
 export type ShowListState = {
   showList: any[];
@@ -35,11 +35,14 @@ export const searchShowsByName = (
   httpClient: IHttpClient,
 ): AppThunk => async dispatch => {
   try {
-    const showList: Show[] = await httpClient.get<Show[]>('/search/shows', {
+    const showWithScoreList: ShowWithScore[] = await httpClient.get<
+      ShowWithScore[]
+    >('/search/shows', {
       params: {
         q: name,
       },
     });
+    const showList: Show[] = showWithScoreList.map(s => s.show);
     dispatch(setShowList(showList));
   } catch (e: any) {
     throw new Error(e);

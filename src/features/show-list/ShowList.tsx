@@ -1,7 +1,8 @@
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {memo, useEffect} from 'react';
+import React, {memo, useCallback, useEffect, useMemo} from 'react';
 import {FlatList, Image, StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
+import _ from 'underscore';
 import {Input} from '../../components/Input';
 import {PageLayout} from '../../components/PageLayout';
 import {H1} from '../../components/Typography';
@@ -12,7 +13,7 @@ import {hrColor, viewportPadding} from '../../utils/const';
 import {RootStackParamList} from '../../utils/routes';
 import {Show} from './show.models';
 import {ShowListElement} from './ShowListElement';
-import {getShows, selectShowList} from './showListSlice';
+import {getShows, searchShowsByName, selectShowList} from './showListSlice';
 
 type ShowListNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -22,41 +23,64 @@ type ShowListNavigationProp = StackNavigationProp<
 type Props = {
   navigation: ShowListNavigationProp;
   getShowsAction: (httpClient: IHttpClient) => void;
+  searchShowsByNameAction: (text: string, httpClient: IHttpClient) => void;
 };
 
 type Item = {
   item: Show;
 };
 
-export const ShowList = memo(({getShowsAction, navigation}: Props) => {
-  const showList: Show[] = useSelector(selectShowList);
-  const httpClient = useDependency<IHttpClient>(IHttpClientType);
+export const ShowList = memo(
+  ({getShowsAction, navigation, searchShowsByNameAction}: Props) => {
+    const showList: Show[] = useSelector(selectShowList);
+    const httpClient = useDependency<IHttpClient>(IHttpClientType);
 
-  useEffect(() => {
-    getShowsAction(httpClient);
-  });
+    useEffect(() => {
+      getShowsAction(httpClient);
+    }, [getShowsAction, httpClient]);
 
-  const renderItem = ({item}: Item) => {
-    const onPress = () => console.log(item.id);
-    return <ShowListElement show={item} onPress={onPress} />;
-  };
+    const renderItem = ({item}: Item) => {
+      const onPress = () => console.log(item.id);
+      return <ShowListElement show={item} onPress={onPress} />;
+    };
 
-  return (
-    <PageLayout>
-      <View style={[style.titleContainer]}>
-        <Image source={require('../../assets/images/movie.png')} />
-        <H1 style={style.h1}>TV Shows</H1>
-      </View>
-      <Input placeholder="Search show..." style={style.input} />
-      <View style={style.hr} />
-      <FlatList
-        keyExtractor={item => `${item.id}`}
-        data={showList}
-        renderItem={renderItem}
-      />
-    </PageLayout>
-  );
-});
+    const onTextChange = useCallback(
+      (text: string) => {
+        console.log('Sono chiamata');
+        if (text.length >= 3) {
+          searchShowsByNameAction(text, httpClient);
+        } else if (text.length === 0) {
+          getShowsAction(httpClient);
+        }
+      },
+      [httpClient, searchShowsByNameAction, getShowsAction],
+    );
+
+    const debouncedOnTextChange = useMemo(() => _.debounce(onTextChange, 300), [
+      onTextChange,
+    ]);
+
+    return (
+      <PageLayout>
+        <View style={[style.titleContainer]}>
+          <Image source={require('../../assets/images/movie.png')} />
+          <H1 style={style.h1}>TV Shows</H1>
+        </View>
+        <Input
+          onTextChange={debouncedOnTextChange}
+          placeholder="Search show..."
+          style={style.input}
+        />
+        <View style={style.hr} />
+        <FlatList
+          keyExtractor={item => `${item.id}`}
+          data={showList}
+          renderItem={renderItem}
+        />
+      </PageLayout>
+    );
+  },
+);
 
 const style = StyleSheet.create({
   titleContainer: {
@@ -82,10 +106,17 @@ const style = StyleSheet.create({
 const showDispatcher = (httpClient: IHttpClient) =>
   store.dispatch(getShows(httpClient));
 
+const searchByNameDispatcher = (name: string, httpClient: IHttpClient) =>
+  store.dispatch(searchShowsByName(name, httpClient));
+
 type ComposedProps = {
   navigation: ShowListNavigationProp;
 };
 
 export const ComposedShowList = ({navigation}: ComposedProps) => (
-  <ShowList navigation={navigation} getShowsAction={showDispatcher} />
+  <ShowList
+    navigation={navigation}
+    getShowsAction={showDispatcher}
+    searchShowsByNameAction={searchByNameDispatcher}
+  />
 );

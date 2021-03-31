@@ -1,3 +1,8 @@
+export type ShowWithScore = {
+  show: Show;
+  score: number;
+}
+
 export type Show = {
   id: number;
   url: string;

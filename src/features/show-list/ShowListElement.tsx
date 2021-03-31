@@ -1,5 +1,10 @@
 import React, {memo} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  ImageSourcePropType,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Arrow} from '../../components/Arrow';
 import {SmallPoster} from '../../components/Poster';
 import {H2, Subtitle} from '../../components/Typography';
@@ -12,11 +17,21 @@ type Props = {
 };
 
 export const ShowListElement = memo(({show, onPress}: Props) => {
+  let poster: ImageSourcePropType;
+
+  if (show.image) {
+    poster = show.image?.medium
+      ? {uri: show.image.medium}
+      : {uri: show.image.original};
+  } else {
+    poster = require('../../assets/images/no-image.png');
+  }
+
   return (
     <View style={style.card}>
       <TouchableOpacity onPress={onPress}>
         <View style={style.container}>
-          <SmallPoster uri={show.image.medium} />
+          <SmallPoster source={poster} />
           <View style={style.infoContainer}>
             <H2>{show.name}</H2>
             <Subtitle>{show.genres[0]}</Subtitle>

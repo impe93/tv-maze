@@ -1,9 +1,9 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet} from 'react-native';
+import {Dimensions, Image, ImageSourcePropType, StyleSheet} from 'react-native';
 import {viewportPadding} from '../utils/const';
 
 type Props = {
-  uri: string;
+  source: ImageSourcePropType;
 };
 
 const smallPosterWidth =
@@ -13,12 +13,12 @@ const smallPosterHeight = smallPosterWidth * 1.4;
 const posterWidth = Dimensions.get('window').width - viewportPadding * 2;
 const posterHeight = posterWidth * 1.4;
 
-export const Poster = ({uri}: Props) => (
-  <Image source={{uri}} style={style.poster} />
+export const Poster = ({source}: Props) => (
+  <Image source={source} style={style.poster} />
 );
 
-export const SmallPoster = ({uri}: Props) => (
-  <Image source={{uri}} style={style.smallPoster} />
+export const SmallPoster = ({source}: Props) => (
+  <Image source={source} style={style.smallPoster} />
 );
 
 const style = StyleSheet.create({
