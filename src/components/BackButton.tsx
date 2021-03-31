@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const BackButton = ({onPress}: Props) => (
-  <View style={styleSheet.container} >
+  <View style={styleSheet.container}>
     <TouchableOpacity onPress={onPress}>
       <Arrow direction="left" />
     </TouchableOpacity>
