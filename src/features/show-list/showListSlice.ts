@@ -1,7 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk, RootState} from '../../redux/store';
 import {IHttpClient} from '../../services/http/HttpClient';
-import {hideLoader, showLoader} from '../loader/loaderSlice';
 import {Show} from './show.models';
 
 export type ShowListState = {
@@ -36,7 +35,6 @@ export const searchShowsByName = (
   httpClient: IHttpClient,
 ): AppThunk => async dispatch => {
   try {
-    dispatch(showLoader());
     const showList: Show[] = await httpClient.get<Show[]>('/search/shows', {
       params: {
         q: name,
@@ -45,8 +43,6 @@ export const searchShowsByName = (
     dispatch(setShowList(showList));
   } catch (e: any) {
     throw new Error(e);
-  } finally {
-    dispatch(hideLoader());
   }
 };
 
@@ -54,13 +50,10 @@ export const getShows = (
   httpClient: IHttpClient,
 ): AppThunk => async dispatch => {
   try {
-    dispatch(showLoader());
     const showList: Show[] = await httpClient.get<Show[]>('/shows');
     dispatch(setShowList(showList));
   } catch (e: any) {
     throw new Error(e);
-  } finally {
-    dispatch(hideLoader());
   }
 };
 
