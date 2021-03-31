@@ -47,7 +47,6 @@ export const ShowList = memo(
 
     const onTextChange = useCallback(
       (text: string) => {
-        console.log('Sono chiamata');
         if (text.length >= 3) {
           searchShowsByNameAction(text, httpClient);
         } else if (text.length === 0) {
