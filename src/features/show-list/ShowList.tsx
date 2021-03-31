@@ -10,7 +10,7 @@ import {store} from '../../redux/store';
 import {IHttpClient, IHttpClientType} from '../../services/http/HttpClient';
 import {useDependency} from '../../services/ioc/useDependency';
 import {hrColor, viewportPadding} from '../../utils/const';
-import {RootStackParamList} from '../../utils/routes';
+import {RootStackParamList, SHOW_DETAILS_PAGE} from '../../utils/routes';
 import {Show} from './show.models';
 import {ShowListElement} from './ShowListElement';
 import {getShows, searchShowsByName, selectShowList} from './showListSlice';
@@ -40,7 +40,8 @@ export const ShowList = memo(
     }, [getShowsAction, httpClient]);
 
     const renderItem = ({item}: Item) => {
-      const onPress = () => console.log(item.id);
+      const onPress = () =>
+        navigation.navigate(SHOW_DETAILS_PAGE, {choosedShow: item});
       return <ShowListElement show={item} onPress={onPress} />;
     };
 
