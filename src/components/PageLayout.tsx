@@ -24,6 +24,7 @@ export const PageLayout = ({children}: Props) => {
 
 const styleSheet = StyleSheet.create({
   container: {
+    height: '100%',
     paddingTop: viewportPadding,
     paddingHorizontal: viewportPadding,
   },
