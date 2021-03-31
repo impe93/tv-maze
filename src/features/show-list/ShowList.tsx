@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {memo, useEffect} from 'react';
 import {FlatList, Image, StyleSheet, View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {Input} from '../../components/Input';
 import {PageLayout} from '../../components/PageLayout';
 import {H1} from '../../components/Typography';
+import {store} from '../../redux/store';
 import {IHttpClient, IHttpClientType} from '../../services/http/HttpClient';
 import {useDependency} from '../../services/ioc/useDependency';
 import {hrColor, viewportPadding} from '../../utils/const';
@@ -11,15 +12,16 @@ import {Show} from './show.models';
 import {ShowListElement} from './ShowListElement';
 import {getShows, selectShowList} from './showListSlice';
 
-type Props = {};
+type Props = {
+  getShowsAction: (httpClient: IHttpClient) => void;
+};
 
-export const ShowList = () => {
+export const ShowList = memo(({getShowsAction}: Props) => {
   const showList: Show[] = useSelector(selectShowList);
-  const dispatch = useDispatch();
   const httpClient = useDependency<IHttpClient>(IHttpClientType);
 
   useEffect(() => {
-    dispatch(getShows(httpClient));
+    getShowsAction(httpClient);
   });
 
   const renderItem = ({item}) => {
@@ -46,7 +48,7 @@ export const ShowList = () => {
       />
     </PageLayout>
   );
-};
+});
 
 const style = StyleSheet.create({
   titleContainer: {
@@ -68,3 +70,10 @@ const style = StyleSheet.create({
     paddingTop: viewportPadding / 2,
   },
 });
+
+const showDispatcher = (httpClient: IHttpClient) =>
+  store.dispatch(getShows(httpClient));
+
+export const ComposedShowList = () => (
+  <ShowList getShowsAction={showDispatcher} />
+);
