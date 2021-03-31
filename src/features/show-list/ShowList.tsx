@@ -1,3 +1,4 @@
+import {StackNavigationProp} from '@react-navigation/stack';
 import React, {memo, useEffect} from 'react';
 import {FlatList, Image, StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
@@ -8,15 +9,26 @@ import {store} from '../../redux/store';
 import {IHttpClient, IHttpClientType} from '../../services/http/HttpClient';
 import {useDependency} from '../../services/ioc/useDependency';
 import {hrColor, viewportPadding} from '../../utils/const';
+import {RootStackParamList} from '../../utils/routes';
 import {Show} from './show.models';
 import {ShowListElement} from './ShowListElement';
 import {getShows, selectShowList} from './showListSlice';
 
+type ShowListNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'ShowListPage'
+>;
+
 type Props = {
+  navigation: ShowListNavigationProp;
   getShowsAction: (httpClient: IHttpClient) => void;
 };
 
-export const ShowList = memo(({getShowsAction}: Props) => {
+type Item = {
+  item: Show;
+}
+
+export const ShowList = memo(({getShowsAction, navigation}: Props) => {
   const showList: Show[] = useSelector(selectShowList);
   const httpClient = useDependency<IHttpClient>(IHttpClientType);
 
@@ -24,13 +36,9 @@ export const ShowList = memo(({getShowsAction}: Props) => {
     getShowsAction(httpClient);
   });
 
-  const renderItem = ({item}) => {
-    return (
-      <ShowListElement
-        show={item}
-        onPress={() => console.log('Movie ' + item.id + ' pressed')}
-      />
-    );
+  const renderItem = ({item}: Item) => {
+    const onPress = () => console.log(item.id);
+    return <ShowListElement show={item} onPress={onPress} />;
   };
 
   return (
@@ -42,7 +50,7 @@ export const ShowList = memo(({getShowsAction}: Props) => {
       <Input placeholder="Search show..." style={style.input} />
       <View style={style.hr} />
       <FlatList
-        keyExtractor={item => item.id}
+        keyExtractor={item => `${item.id}`}
         data={showList}
         renderItem={renderItem}
       />
@@ -74,6 +82,10 @@ const style = StyleSheet.create({
 const showDispatcher = (httpClient: IHttpClient) =>
   store.dispatch(getShows(httpClient));
 
-export const ComposedShowList = () => (
-  <ShowList getShowsAction={showDispatcher} />
+type ComposedProps = {
+  navigation: ShowListNavigationProp;
+};
+
+export const ComposedShowList = ({navigation}: ComposedProps) => (
+  <ShowList navigation={navigation} getShowsAction={showDispatcher} />
 );

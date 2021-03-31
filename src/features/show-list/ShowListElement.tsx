@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Arrow} from '../../components/Arrow';
 import {SmallPoster} from '../../components/Poster';
@@ -11,7 +11,7 @@ type Props = {
   onPress: () => void;
 };
 
-export const ShowListElement = ({show, onPress}: Props) => {
+export const ShowListElement = memo(({show, onPress}: Props) => {
   return (
     <View style={style.card}>
       <TouchableOpacity onPress={onPress}>
@@ -26,7 +26,7 @@ export const ShowListElement = ({show, onPress}: Props) => {
       </TouchableOpacity>
     </View>
   );
-};
+});
 
 const style = StyleSheet.create({
   card: {
