@@ -26,7 +26,7 @@ type Props = {
 
 type Item = {
   item: Show;
-}
+};
 
 export const ShowList = memo(({getShowsAction, navigation}: Props) => {
   const showList: Show[] = useSelector(selectShowList);
