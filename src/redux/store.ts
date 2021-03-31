@@ -8,6 +8,11 @@ export const store = configureStore({
     showList: showListReducer,
     loader: loaderReducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      immutableCheck: {ignoredPaths: ['showList.showList']},
+      serializableCheck: {ignoredPaths: ['showList.showList']},
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

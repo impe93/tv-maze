@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {AppThunk} from '../../redux/store';
+import {AppThunk, RootState} from '../../redux/store';
 import {IHttpClient} from '../../services/http/HttpClient';
 import {hideLoader, showLoader} from '../loader/loaderSlice';
 import {Show} from './show.models';
@@ -63,5 +63,7 @@ export const getShows = (
     dispatch(hideLoader());
   }
 };
+
+export const selectShowList = (state: RootState) => state.showList.showList;
 
 export const showListReducer = showListSlice.reducer;
