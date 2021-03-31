@@ -1,6 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {Show} from '../features/show-list/show.models';
+import { ShowElement } from '../features/show-list/ShowElement';
 import {ComposedShowList} from '../features/show-list/ShowList';
 
 type Route = {
@@ -20,4 +21,5 @@ export type RootStackParamList = {
 
 export const routes: Route[] = [
   {name: SHOW_LIST_PAGE, component: ComposedShowList},
+  {name: SHOW_DETAILS_PAGE, component: ShowElement},
 ];
