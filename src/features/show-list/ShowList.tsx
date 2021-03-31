@@ -56,7 +56,7 @@ export const ShowList = memo(
       [httpClient, searchShowsByNameAction, getShowsAction],
     );
 
-    const debouncedOnTextChange = useMemo(() => _.debounce(onTextChange, 300), [
+    const debouncedOnTextChange = useMemo(() => _.debounce(onTextChange, 500), [
       onTextChange,
     ]);
 
