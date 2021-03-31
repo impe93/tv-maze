@@ -1,28 +1,29 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleProp, StyleSheet, Text, TextStyle} from 'react-native';
 import {subtitleColor, textColor} from '../utils/const';
 
 type Props = {
   children: string;
+  style?: StyleProp<TextStyle>;
 };
 
-export const H1 = ({children}: Props) => (
-  <Text style={style.h1}>{children}</Text>
+export const H1 = ({children, style}: Props) => (
+  <Text style={[style, styleSheet.h1]}>{children}</Text>
 );
 
-export const H2 = ({children}: Props) => (
-  <Text style={style.h2}>{children}</Text>
+export const H2 = ({children, style}: Props) => (
+  <Text style={[style, styleSheet.h2]}>{children}</Text>
 );
 
-export const Subtitle = ({children}: Props) => (
-  <Text style={style.subtitle}>{children}</Text>
+export const Subtitle = ({children, style}: Props) => (
+  <Text style={[style, styleSheet.subtitle]}>{children}</Text>
 );
 
-export const Paragraph = ({children}: Props) => (
-  <Text style={style.paragraph}>{children}</Text>
+export const Paragraph = ({children, style}: Props) => (
+  <Text style={[style, styleSheet.paragraph]}>{children}</Text>
 );
 
-const style = StyleSheet.create({
+const styleSheet = StyleSheet.create({
   h1: {
     fontFamily: 'DelaGothicOne-Regular',
     fontSize: 32,
