@@ -37,8 +37,8 @@ export const ShowElement = memo(({navigation, route}: Props) => {
   const premierYear = date.getFullYear();
 
   return (
-    <PageLayout>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <PageLayout>
         <BackButton onPress={onBack} />
         <H1 style={styleSheet.topMargin}>{`${show.name} (${premierYear})`}</H1>
         {!genres || genres === '' ? null : <Subtitle>{genres}</Subtitle>}
@@ -49,8 +49,8 @@ export const ShowElement = memo(({navigation, route}: Props) => {
         ) : null}
         <Subtitle style={styleSheet.topMargin}>Summary</Subtitle>
         <Paragraph style={styleSheet.paragraph}>{cleanSummary}</Paragraph>
-      </ScrollView>
-    </PageLayout>
+      </PageLayout>
+    </ScrollView>
   );
 });
 
