@@ -4,7 +4,7 @@ import {IHttpClient} from '../../services/http/HttpClient';
 import {Show, ShowWithScore} from './show.models';
 
 export type ShowListState = {
-  showList: any[];
+  showList: Show[];
 };
 
 const initialState: ShowListState = {
