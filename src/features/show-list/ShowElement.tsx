@@ -9,7 +9,7 @@ import {viewportPadding} from '../../utils/const';
 import {RootStackParamList} from '../../utils/routes';
 import {Show} from './show.models';
 
-type ShowElementNavigationProp = StackNavigationProp<
+export type ShowElementNavigationProp = StackNavigationProp<
   RootStackParamList,
   'ShowListPage'
 >;
@@ -29,9 +29,6 @@ export const ShowElement = memo(({navigation, route}: Props) => {
     const finalString = index === 0 ? `${cv}` : `${pv}, ${cv}`;
     return finalString;
   }, '');
-
-  console.log(show.genres);
-  console.log(genres);
 
   const date = new Date(show.premiered);
   const premierYear = date.getFullYear();
