@@ -4,6 +4,7 @@ import {subtitleColor, textColor} from '../utils/const';
 
 type Props = {
   children: string;
+  testID?: string;
   style?: StyleProp<TextStyle>;
 };
 
@@ -15,8 +16,10 @@ export const H2 = ({children, style}: Props) => (
   <Text style={[style, styleSheet.h2]}>{children}</Text>
 );
 
-export const Subtitle = ({children, style}: Props) => (
-  <Text style={[style, styleSheet.subtitle]}>{children}</Text>
+export const Subtitle = ({children, style, testID}: Props) => (
+  <Text testID={testID} style={[style, styleSheet.subtitle]}>
+    {children}
+  </Text>
 );
 
 export const Paragraph = ({children, style}: Props) => (

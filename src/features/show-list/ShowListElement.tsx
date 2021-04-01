@@ -27,6 +27,8 @@ export const ShowListElement = memo(({show, onPress}: Props) => {
     poster = require('../../assets/images/no-image.png');
   }
 
+  const testID = `ShowListElement__${show.id}`;
+
   return (
     <View style={style.card}>
       <TouchableOpacity onPress={onPress}>
@@ -34,7 +36,9 @@ export const ShowListElement = memo(({show, onPress}: Props) => {
           <SmallPoster source={poster} />
           <View style={style.infoContainer}>
             <H2>{show.name}</H2>
-            <Subtitle>{show.genres[0]}</Subtitle>
+            {show.genres && show.genres.length > 0 ? (
+              <Subtitle testID={testID}>{show.genres[0]}</Subtitle>
+            ) : null}
           </View>
           <Arrow direction="right" />
         </View>
