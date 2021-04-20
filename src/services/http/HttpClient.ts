@@ -19,7 +19,7 @@ export class HttpClient implements IHttpClient {
     this.axiosInstance =
       axiosInstance ??
       axios.create({
-        baseURL: 'http://api.tvmaze.com',
+        baseURL: 'https://api.tvmaze.com',
         timeout: 10000,
       });
   }

@@ -34,7 +34,7 @@ export const ShowElement = memo(({navigation, route}: Props) => {
   const premierYear = date.getFullYear();
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView contentInsetAdjustmentBehavior="automatic" showsVerticalScrollIndicator={false}>
       <PageLayout>
         <BackButton onPress={onBack} />
         <H1 style={styleSheet.topMargin}>{`${show.name} (${premierYear})`}</H1>

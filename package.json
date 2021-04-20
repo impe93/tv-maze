@@ -8,6 +8,7 @@
     "start": "npx react-native start",
     "build-debug": "cd ./android && ./gradlew assembleDebug && cd ..",
     "test": "jest",
+    "link": "npx react-native link",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
