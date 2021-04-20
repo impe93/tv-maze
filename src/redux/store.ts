@@ -1,11 +1,22 @@
-import {configureStore, ThunkAction, Action, getDefaultMiddleware} from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import {showListReducer} from '../features/show-list/showListSlice';
-import {container} from '../services/ioc/ContainerContext';
+import { ShowListActionList } from '../features/show-list/store/showList.constants';
+import { showListReducer } from '../features/show-list/store/showListSlice';
+import { container } from '../services/ioc/ContainerContext';
 import rootSaga from './rootSaga';
 
 let sagaMiddleware = createSagaMiddleware();
-const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];
+const middleware = [
+  ...getDefaultMiddleware({
+    thunk: false,
+    serializableCheck: {
+      ignoredActions: [
+        ...ShowListActionList,
+      ],
+    },
+  }),
+  sagaMiddleware
+];
 
 export const store = configureStore({
   reducer: {
