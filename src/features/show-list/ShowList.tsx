@@ -1,19 +1,20 @@
-import {StackNavigationProp} from '@react-navigation/stack';
-import React, {memo, useCallback, useEffect, useMemo} from 'react';
-import {FlatList, Image, StyleSheet, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import { FlatList, Image, StyleSheet, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import _ from 'underscore';
-import {Input} from '../../components/Input';
-import {PageLayout} from '../../components/PageLayout';
-import {H1} from '../../components/Typography';
-import {store} from '../../redux/store';
-import {IHttpClient, IHttpClientType} from '../../services/http/HttpClient';
-import {useDependency} from '../../services/ioc/useDependency';
-import {hrColor, viewportPadding} from '../../utils/const';
-import {RootStackParamList, SHOW_DETAILS_PAGE} from '../../utils/routes';
-import {Show} from './show.models';
-import {ShowListElement} from './ShowListElement';
-import {getShows, searchShowsByName, selectShowList} from './showListSlice';
+import { Input } from '../../components/Input';
+import { PageLayout } from '../../components/PageLayout';
+import { H1 } from '../../components/Typography';
+import { store } from '../../redux/store';
+import { IHttpClient, IHttpClientType } from '../../services/http/HttpClient';
+import { useDependency } from '../../services/ioc/useDependency';
+import { hrColor, viewportPadding } from '../../utils/const';
+import { RootStackParamList, SHOW_DETAILS_PAGE } from '../../utils/routes';
+import { Show } from './show.models';
+import { ShowListElement } from './ShowListElement';
+import { getShowsAction, searchShowsByNameAction } from './store/showList.actions';
+import { selectShowList } from './store/showListSlice';
 
 type ShowListNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -31,7 +32,7 @@ type Item = {
 };
 
 export const ShowList = memo(
-  ({getShowsAction, navigation, searchShowsByNameAction}: Props) => {
+  ({ getShowsAction, navigation, searchShowsByNameAction }: Props) => {
     const showList: Show[] = useSelector(selectShowList);
     const httpClient = useDependency<IHttpClient>(IHttpClientType);
 
@@ -39,9 +40,9 @@ export const ShowList = memo(
       getShowsAction(httpClient);
     }, [getShowsAction, httpClient]);
 
-    const renderItem = ({item}: Item) => {
+    const renderItem = ({ item }: Item) => {
       const onPress = () =>
-        navigation.navigate(SHOW_DETAILS_PAGE, {choosedShow: item});
+        navigation.navigate(SHOW_DETAILS_PAGE, { choosedShow: item });
       return <ShowListElement show={item} onPress={onPress} />;
     };
 
@@ -105,16 +106,16 @@ const style = StyleSheet.create({
 });
 
 const showDispatcher = (httpClient: IHttpClient) =>
-  store.dispatch(getShows(httpClient));
+  store.dispatch(getShowsAction(httpClient));
 
 const searchByNameDispatcher = (name: string, httpClient: IHttpClient) =>
-  store.dispatch(searchShowsByName(name, httpClient));
+  store.dispatch(searchShowsByNameAction(httpClient, name));
 
 type ComposedProps = {
   navigation: ShowListNavigationProp;
 };
 
-export const ComposedShowList = ({navigation}: ComposedProps) => (
+export const ComposedShowList = ({ navigation }: ComposedProps) => (
   <ShowList
     navigation={navigation}
     getShowsAction={showDispatcher}
