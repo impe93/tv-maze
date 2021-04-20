@@ -1,17 +1,20 @@
-import {configureStore, ThunkAction, Action} from '@reduxjs/toolkit';
+import {configureStore, ThunkAction, Action, getDefaultMiddleware} from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
 import {showListReducer} from '../features/show-list/showListSlice';
 import {container} from '../services/ioc/ContainerContext';
+import rootSaga from './rootSaga';
+
+let sagaMiddleware = createSagaMiddleware();
+const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];
 
 export const store = configureStore({
   reducer: {
     showList: showListReducer,
   },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      immutableCheck: {ignoredPaths: ['showList.showList']},
-      serializableCheck: {ignoredPaths: ['showList.showList']},
-    }),
+  middleware,
 });
+
+sagaMiddleware.run(rootSaga);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
