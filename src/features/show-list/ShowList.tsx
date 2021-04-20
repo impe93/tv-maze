@@ -1,8 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { FlatList, Image, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import _ from 'underscore';
 import { Input } from '../../components/Input';
 import { PageLayout } from '../../components/PageLayout';
 import { H1 } from '../../components/Typography';
