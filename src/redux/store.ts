@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { ShowListActionList } from '../features/show-list/store/showList.constants';
-import { showListReducer } from '../features/show-list/store/showListSlice';
+import { showListReducer } from '../features/show-list/store/showList.slice';
 import { container } from '../services/ioc/ContainerContext';
 import rootSaga from './rootSaga';
 

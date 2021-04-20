@@ -13,7 +13,7 @@ import { RootStackParamList, SHOW_DETAILS_PAGE } from '../../utils/routes';
 import { Show } from './show.models';
 import { ShowListElement } from './ShowListElement';
 import { getShowsAction, searchShowsByNameAction } from './store/showList.actions';
-import { selectShowList } from './store/showListSlice';
+import { selectShowList } from './store/showList.slice';
 
 type ShowListNavigationProp = StackNavigationProp<
   RootStackParamList,

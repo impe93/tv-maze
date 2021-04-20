@@ -2,7 +2,7 @@ import { call, debounce, put, takeLatest } from "redux-saga/effects";
 import { Show, ShowWithScore } from "../show.models";
 import { GetShowsType, SearchShowsByNameType } from "./showList.actions";
 import { GET_SHOWS_ACTION, SEARCH_SHOWS_BY_NAME_ACTION } from "./showList.constants";
-import { setShowList } from "./showListSlice";
+import { setShowList } from "./showList.slice";
 
 export function* searchShowsByName({ apiConfig }: SearchShowsByNameType) {
   const { httpClient, config } = apiConfig;
