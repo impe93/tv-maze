@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, debounce, put, takeLatest } from "redux-saga/effects";
 import { Show, ShowWithScore } from "../show.models";
 import { GetShowsType, SearchShowsByNameType } from "./showList.actions";
 import { GET_SHOWS_ACTION, SEARCH_SHOWS_BY_NAME_ACTION } from "./showList.constants";
@@ -30,5 +30,5 @@ export function* getShows({ apiConfig }: GetShowsType) {
 
 export function* showListSaga() {
   yield takeLatest(GET_SHOWS_ACTION, getShows);
-  yield takeLatest(SEARCH_SHOWS_BY_NAME_ACTION, searchShowsByName);
+  yield debounce(1000, SEARCH_SHOWS_BY_NAME_ACTION, searchShowsByName);
 }

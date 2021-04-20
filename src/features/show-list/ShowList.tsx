@@ -57,10 +57,6 @@ export const ShowList = memo(
       [httpClient, searchShowsByNameAction, getShowsAction],
     );
 
-    const debouncedOnTextChange = useMemo(() => _.debounce(onTextChange, 500), [
-      onTextChange,
-    ]);
-
     return (
       <PageLayout>
         <View style={[style.titleContainer]}>
@@ -68,7 +64,7 @@ export const ShowList = memo(
           <H1 style={style.h1}>TV Shows</H1>
         </View>
         <Input
-          onTextChange={debouncedOnTextChange}
+          onTextChange={onTextChange}
           placeholder="Search show..."
           style={style.input}
         />
