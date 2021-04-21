@@ -17,7 +17,7 @@ export const searchShowsByNameAction = (httpClient: IHttpClient, name: string): 
   }
 });
 
-export const getShowsAction = (httpClient: IHttpClient): SearchShowsByNameType => ({
+export const getShowsAction = (httpClient: IHttpClient): GetShowsType => ({
   type: GET_SHOWS_ACTION,
   apiConfig: {
     httpClient,
